@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老年人便捷乘机服务</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", "幼圆", sans-serif;
+        }
+
+        body {
+            font-size: 18px;
+            line-height: 2;
+            color: #333;
+            background: #fdf6e9; /* 温暖米黄色背景 */
+            transition: font-size 0.3s;
+        }
+
+        /* 放大字体 */
+        .font-large {
+            font-size: 26px !important;
+        }
+
+        /* 顶部导航 - 圆角+柔和蓝 */
+        .header {
+            background: #6495ed; /* 柔和天蓝色 */
+            color: white;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            border-radius: 0 0 20px 20px; /* 底部圆角 */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo::before {
+            content: "✈️";
+            font-size: 28px;
+        }
+
+        /* 可爱按钮 - 圆润+柔和色+阴影 */
+        .btn {
+            padding: 15px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px; /* 圆形按钮 */
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+            min-width: 120px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-red { background: #ff8a80; color: white; } /* 柔和红 */
+        .btn-blue { background: #6495ed; color: white; } /* 柔和蓝 */
+        .btn-green { background: #9ccc65; color: white; } /* 柔和绿 */
+        .btn-orange { background: #ffb74d; color: white; } /* 柔和橙 */
+
+        /* 主体容器 */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* 可爱横幅 - 圆角+插画感 */
+        .banner {
+            text-align: center;
+            padding: 50px 20px;
+            background: #fff8e1; /* 浅奶油色 */
+            border-radius: 30px; /* 大圆角 */
+            margin-bottom: 30px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            border: 2px solid #ffe0b2;
+            position: relative;
+        }
+        /* 可爱装饰 */
+        .banner::before {
+            content: "❤️";
+            font-size: 30px;
+            position: absolute;
+            top: 20px;
+            left: 30px;
+        }
+        .banner::after {
+            content: "💛";
+            font-size: 30px;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+
+        .banner h1 {
+            font-size: 36px;
+            color: #6495ed;
+            margin-bottom: 20px;
+        }
+
+        /* 可爱卡片 - 圆角+柔和边框+阴影 */
+        .card {
+            border: 3px solid #ffe0b2;
+            border-radius: 30px; /* 大圆角 */
+            padding: 30px;
+            margin: 30px 0;
+            background: white;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        /* 卡片顶部可爱装饰条 */
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #ff8a80, #ffb74d, #9ccc65, #6495ed);
+        }
+
+        .card h2 {
+            color: #6495ed;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .card h2::before, .card h2::after {
+            content: "✨";
+            font-size: 24px;
+        }
+
+        /* 可爱表格 - 圆角+柔和边框 */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 2px solid #ffe0b2;
+            border-radius: 20px;
+            overflow: hidden; /* 让表格圆角生效 */
+        }
+
+        .table th, .table td {
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #ffe0b2;
+            font-size: 18px;
+            background: white;
+        }
+
+        .table th {
+            background: #6495ed;
+            color: white;
+        }
+        /* 表格行hover效果 */
+        .table tr:hover td {
+            background: #fff8e1;
+        }
+
+        /* 可爱表单 - 圆角+柔和边框 */
+        .form-group {
+            margin: 25px 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #6495ed;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 18px;
+            font-size: 20px;
+            border: 2px solid #ffe0b2;
+            border-radius: 20px; /* 大圆角输入框 */
+            background: #fff8e1;
+            transition: all 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #6495ed;
+            box-shadow: 0 0 8px rgba(100,149,237,0.3);
+        }
+
+        /* 可爱悬浮客服 - 圆形+可爱图标 */
+        .float-service {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #ff8a80;
+            color: white;
+            padding: 20px 25px;
+            border-radius: 50%; /* 圆形 */
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(255,138,128,0.3);
+            z-index: 999;
+            transition: all 0.3s;
+        }
+        .float-service:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255,138,128,0.4);
+        }
+
+        /* 可爱底部 - 圆角+柔和色 */
+        .footer {
+            background: #6495ed;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+            font-size: 18px;
+            border-radius: 20px 20px 0 0; /* 顶部圆角 */
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        }
+        .footer p {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+<!-- 顶部导航栏 -->
+<div class="header">
+    <div class="nav">
+        <div class="logo" id="webTitle">老年旅客便捷乘机服务</div>
+        <div>
+            <button class="btn btn-blue" onclick="toggleFont()" id="fontBtn">放大字体</button>
+            <button class="btn btn-green" onclick="startSpeak()" id="playBtn">语音播报</button>
+            <button class="btn btn-orange" onclick="pauseSpeak()" id="pauseBtn">暂停播放</button>
+            <button class="btn btn-red" onclick="stopSpeak()" id="stopBtn">停止播放</button>
+            <button class="btn btn-blue" onclick="changeLang('zh')">中文</button>
+            <button class="btn btn-blue" onclick="changeLang('en')">English</button>
+            <button class="btn btn-blue" onclick="changeLang('jp')">日本語</button>
+            <button class="btn btn-blue" onclick="changeLang('kr')">한국어</button>
+        </div>
+    </div>
+</div>
+
+<!-- 可爱悬浮客服 -->
+<div class="float-service" onclick="callService()">
+    📞
+</div>
+
+<div class="container">
+    <!-- 可爱横幅 -->
+    <div class="banner">
+        <h1 id="bannerTitle">爱心乘机 · 便捷无忧</h1>
+        <p id="bannerDesc">专为60岁以上老年旅客提供全流程专属服务 严格遵循民航行业标准</p>
+        <button class="btn btn-red" onclick="scrollToReserve()" style="margin-top:20px" id="reserveBtn">立即预约服务</button>
+    </div>
+
+    <!-- 老年旅客分类 -->
+    <div class="card">
+        <h2 id="classTitle">老年旅客分类标准</h2>
+        <table class="table">
+            <tr>
+                <th id="t1">分类</th>
+                <th id="t2">年龄/身体特征</th>
+                <th id="t3">核心服务</th>
+            </tr>
+            <tr>
+                <td id="tA">A类<br>低龄健康老人</td>
+                <td id="tAHealth">60-69周岁<br>自主行动、无疾病</td>
+                <td id="c1">便捷简化服务</td>
+            </tr>
+            <tr>
+                <td id="tB">B类<br>行动不便老人</td>
+                <td id="tBHealth">70-79周岁<br>行动迟缓、慢性病</td>
+                <td id="c2">轮椅/优先通行辅助</td>
+            </tr>
+            <tr>
+                <td id="tC">C类<br>高龄失能老人</td>
+                <td id="tCHealth">80周岁以上<br>无人陪伴/失能</td>
+                <td id="c3">全程专人陪护</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 便捷购票模块 -->
+    <div class="card">
+        <h2 id="buyTitle">老年人便捷购票</h2>
+        <div class="form-group">
+            <label id="b1">旅客姓名</label>
+            <input type="text" placeholder="请输入姓名">
+        </div>
+        <div class="form-group">
+            <label id="b2">身份证号</label>
+            <input type="text" placeholder="请输入身份证号">
+        </div>
+        <div class="form-group">
+            <label id="b3">出发城市</label>
+            <input type="text" placeholder="请输入出发城市">
+        </div>
+        <div class="form-group">
+            <label id="b4">到达城市</label>
+            <input type="text" placeholder="请输入到达城市">
+        </div>
+        <div class="form-group">
+            <label id="b5">出行日期</label>
+            <input type="date">
+        </div>
+        <button class="btn btn-red" style="width:100%" onclick="buyTicket()" id="buyBtn">立即购票</button>
+    </div>
+
+    <!-- 服务指南 -->
+    <div class="card">
+        <h2 id="guideTitle">乘机服务指南</h2>
+        <p id="g1">1. 订票：专属通道，极简填写，无需复杂操作 📝</p>
+        <p id="g2">2. 值机：优先值机，免费预约轮椅、爱心服务 🛒</p>
+        <p id="g3">3. 安检：优先安检通道，专人引导通行 🚪</p>
+        <p id="g4">4. 候机：爱心休息区，免费饮水、休息服务 ☕</p>
+        <p id="g5">5. 登机：优先登机，专人搀扶，前排预留座位 ✈️</p>
+        <p id="g6">6. 到达：优先下机，行李协助，接机无缝对接 📦</p>
+    </div>
+
+    <!-- 适老化细节 -->
+    <div class="card">
+        <h2 id="elderTitle">适老化贴心设计</h2>
+        <p id="e1">✅ 超大字体：默认大字体，支持一键放大 🔍</p>
+        <p id="e2">✅ 语音播报：全程语音朗读，看不清也能听 🎧</p>
+        <p id="e3">✅ 超大按钮：所有按钮一键点击，无需精准操作 🖱️</p>
+        <p id="e4">✅ 极简操作：无广告、无复杂步骤、无验证码 🚫</p>
+        <p id="e5">✅ 高对比度：清晰配色，不刺眼、看得清 🌈</p>
+        <p id="e6">✅ 一键客服：24小时人工服务，随时帮助 📞</p>
+    </div>
+
+    <!-- 服务预约 -->
+    <div class="card" id="reserve">
+        <h2 id="reserveTitle">服务预约中心</h2>
+        <div class="form-group">
+            <label id="r1">旅客姓名</label>
+            <input type="text" placeholder="请输入姓名">
+        </div>
+        <div class="form-group">
+            <label id="r2">联系电话</label>
+            <input type="text" placeholder="请输入电话">
+        </div>
+        <div class="form-group">
+            <label id="r3">航班号</label>
+            <input type="text" placeholder="请输入航班号">
+        </div>
+        <div class="form-group">
+            <label id="r4">选择服务</label>
+            <select>
+                <option id="optA">A类 便捷服务</option>
+                <option id="optB">B类 轮椅服务</option>
+                <option id="optC">C类 全程陪护</option>
+            </select>
+        </div>
+        <button class="btn btn-red" style="width:100%" onclick="submitReserve()" id="submitBtn">提交预约</button>
+    </div>
+</div>
+
+<!-- 可爱底部 -->
+<div class="footer">
+    <p id="f1">严格遵循《民用航空旅客运输服务质量 MH/T 1045-2021》</p>
+    <p id="f2">老年人专属客服：400-888-9999 💖</p>
+    <p id="f3">所有爱心服务全部免费 🎁</p>
+    <p style="margin-top:20px" id="f4">© 老年旅客便捷服务平台</p>
+</div>
+
+<script>
+    // 语音对象
+    let speech = null;
+    let isPaused = false;
+
+    // 多国语言包
+    const langData = {
+        zh: {
+            webTitle:"老年旅客便捷乘机服务",fontBtn:"放大字体",playBtn:"语音播报",pauseBtn:"暂停播放",stopBtn:"停止播放",
+            bannerTitle:"爱心乘机 · 便捷无忧",bannerDesc:"专为60岁以上老年旅客提供全流程专属服务 严格遵循民航行业标准",reserveBtn:"立即预约服务",
+            classTitle:"老年旅客分类标准",t1:"分类",t2:"年龄/身体特征",t3:"核心服务",
+            tA:"A类<br>低龄健康老人",tAHealth:"60-69周岁<br>自主行动、无疾病",c1:"便捷简化服务",
+            tB:"B类<br>行动不便老人",tBHealth:"70-79周岁<br>行动迟缓、慢性病",c2:"轮椅/优先通行辅助",
+            tC:"C类<br>高龄失能老人",tCHealth:"80周岁以上<br>无人陪伴/失能",c3:"全程专人陪护",
+            buyTitle:"老年人便捷购票",b1:"旅客姓名",b2:"身份证号",b3:"出发城市",b4:"到达城市",b5:"出行日期",buyBtn:"立即购票",
+            guideTitle:"乘机服务指南",g1:"1. 订票：专属通道，极简填写，无需复杂操作 📝",g2:"2. 值机：优先值机，免费预约轮椅、爱心服务 🛒",
+            g3:"3. 安检：优先安检通道，专人引导通行 🚪",g4:"4. 候机：爱心休息区，免费饮水、休息服务 ☕",
+            g5:"5. 登机：优先登机，专人搀扶，前排预留座位 ✈️",g6:"6. 到达：优先下机，行李协助，接机无缝对接 📦",
+            elderTitle:"适老化贴心设计",e1:"✅ 超大字体：默认大字体，支持一键放大 🔍",e2:"✅ 语音播报：全程语音朗读，看不清也能听 🎧",
+            e3:"✅ 超大按钮：所有按钮一键点击，无需精准操作 🖱️",e4:"✅ 极简操作：无广告、无复杂步骤、无验证码 🚫",
+            e5:"✅ 高对比度：清晰配色，不刺眼、看得清 🌈",e6:"✅ 一键客服：24小时人工服务，随时帮助 📞",
+            reserveTitle:"服务预约中心",r1:"旅客姓名",r2:"联系电话",r3:"航班号",r4:"选择服务",
+            optA:"A类 便捷服务",optB:"B类 轮椅服务",optC:"C类 全程陪护",submitBtn:"提交预约",
+            f1:"严格遵循《民用航空旅客运输服务质量 MH/T 1045-2021》",f2:"老年人专属客服：400-888-9999 💖",f3:"所有爱心服务全部免费 🎁",f4:"© 老年旅客便捷服务平台"
+        },
+        en: {
+            webTitle:"Elderly Flight Service",fontBtn:"Zoom Font",playBtn:"Speak",pauseBtn:"Pause",stopBtn:"Stop",
+            bannerTitle:"Care Flight · Easy Travel",bannerDesc:"Exclusive service for seniors over 60 years old",reserveBtn:"Book Now",
+            classTitle:"Senior Classification",t1:"Type",t2:"Age/Health",t3:"Service",
+            tA:"Type A<br>Healthy Elderly (60-69)",tAHealth:"60-69 Years<br>Independent, No Illness",c1:"Easy Service",
+            tB:"Type B<br>Limited Mobility (70-79)",tBHealth:"70-79 Years<br>Slow Movement, Chronic Disease",c2:"Wheelchair Assistance",
+            tC:"Type C<br>Disabled Elderly (80+)",tCHealth:"80+ Years<br>Unaccompanied/Disabled",c3:"Full Escort",
+            buyTitle:"Ticket Booking",b1:"Name",b2:"ID Number",b3:"Departure",b4:"Arrival",b5:"Date",buyBtn:"Book Ticket",
+            guideTitle:"Travel Guide",g1:"1. Booking: Simple and fast 📝",g2:"2. Check-in: Priority check-in & wheelchair 🛒",
+            g3:"3. Security: Priority channel 🚪",g4:"4. Waiting: Care lounge ☕",
+            g5:"5. Boarding: Priority boarding ✈️",g6:"6. Arrival: Baggage help 📦",
+            elderTitle:"Elderly-Friendly Design",e1:"✅ Large Font 🔍",e2:"✅ Voice Broadcast 🎧",
+            e3:"✅ Big Buttons 🖱️",e4:"✅ Simple Operation 🚫",e5:"✅ High Contrast 🌈",e6:"✅ 24h Service 📞",
+            reserveTitle:"Service Booking",r1:"Name",r2:"Phone",r3:"Flight No.",r4:"Service Type",
+            optA:"Type A - Easy Service",optB:"Type B - Wheelchair",optC:"Type C - Full Escort",submitBtn:"Submit",
+            f1:"Comply with Civil Aviation Standards",f2:"Service Hotline: 400-888-9999 💖",f3:"All services are free 🎁",f4:"© Elderly Flight Service"
+        },
+        jp: {
+            webTitle:"高齢者航空サービス",fontBtn:"文字拡大",playBtn:"音声",pauseBtn:"一時停止",stopBtn:"停止",
+            bannerTitle:"安心・快適な空の旅",bannerDesc:"60歳以上の高齢者向けサービス",reserveBtn:"予約する",
+            classTitle:"高齢者分類",t1:"分類",t2:"年齢/状態",t3:"サービス",
+            tA:"Aクラス<br>健康な高齢者（60-69）",tAHealth:"60-69才<br>自立、病気なし",c1:"簡易サービス",
+            tB:"Bクラス<br>移動困難（70-79）",tBHealth:"70-79才<br>動作緩慢、慢性疾患",c2:"車椅子補助",
+            tC:"Cクラス<br>障害のある高齢者（80+）",tCHealth:"80才以上<br>同行者なし/障害",c3:"完全介助",
+            buyTitle:"航空券予約",b1:"氏名",b2:"ID番号",b3:"出発地",b4:"到着地",b5:"日付",buyBtn:"予約",
+            guideTitle:"ご利用ガイド",g1:"1. 予約：簡単入力 📝",g2:"2. チェックイン：優先サービス 🛒",
+            g3:"3. 保安検査：優先レーン 🚪",g4:"4. 待合室：安心スペース ☕",
+            g5:"5. 搭乗：優先搭乗 ✈️",g6:"6. 到着：手荷物補助 📦",
+            elderTitle:"高齢者向けデザイン",e1:"✅ 大きな文字 🔍",e2:"✅ 音声ガイド 🎧",
+            e3:"✅ 大きなボタン 🖱️",e4:"✅ 簡単操作 🚫",e5:"✅ 高コントラスト 🌈",e6:"✅ 24時間サポート 📞",
+            reserveTitle:"サービス予約",r1:"氏名",r2:"電話",r3:"便名",r4:"サービス種類",
+            optA:"Aクラス - 簡易サービス",optB:"Bクラス - 車椅子",optC:"Cクラス - 完全介助",submitBtn:"送信",
+            f1:"航空基準に準拠",f2:"サービス電話：400-888-9999 💖",f3:"全て無料 🎁",f4:"© 高齢者航空サービス"
+        },
+        kr: {
+            webTitle:"고령자 항공 서비스",fontBtn:"글자확대",playBtn:"음성",pauseBtn:"일시정지",stopBtn:"정지",
+            bannerTitle:"안심하고 편리한 여행",bannerDesc:"60세 이상 고령자 맞춤 서비스",reserveBtn:"예약하기",
+            classTitle:"고령자 분류",t1:"분류",t2:"연령/상태",t3:"서비스",
+            tA:"A클래스<br>건강한 고령자 (60-69)",tAHealth:"60-69세<br>자립, 질병 없음",c1:"간편 서비스",
+            tB:"B클래스<br>이동 불편 (70-79)",tBHealth:"70-79세<br>동작 느림, 만성 질환",c2:"휠체어 지원",
+            tC:"C클래스<br>장애 고령자 (80+)",tCHealth:"80세 이상<br>동행 없음/장애",c3:"전체 도우미",
+            buyTitle:"항공권 예약",b1:"이름",b2:"ID 번호",b3:"출발지",b4:"도착지",b5:"날짜",buyBtn:"예약",
+            guideTitle:"이용 가이드",g1:"1. 예약: 간편 입력 📝",g2:"2. 체크인: 우선 서비스 🛒",
+            g3:"3. 보안검색: 우선 통로 🚪",g4:"4. 대기실: 안심 공간 ☕",
+            g5:"5. 탑승: 우선 탑승 ✈️",g6:"6. 도착: 수하물 지원 📦",
+            elderTitle:"고령자 친화적 디자인",e1:"✅ 큰 글씨 🔍",e2:"✅ 음성 안내 🎧",
+            e3:"✅ 큰 버튼 🖱️",e4:"✅ 간단 조작 🚫",e5:"✅ 높은 대비 🌈",e6:"✅ 24시간 지원 📞",
+            reserveTitle:"서비스 예약",r1:"이름",r2:"전화",r3:"항공편",r4:"서비스 종류",
+            optA:"A클래스 - 간편 서비스",optB:"B클래스 - 휠체어",optC:"C클래스 - 전체 도우미",submitBtn:"제출",
+            f1:"항공 기준 준수",f2:"서비스 전화: 400-888-9999 💖",f3:"모든 서비스 무료 🎁",f4:"© 고령자 항공 서비스"
+        }
+    };
+
+    // 切换语言
+    function changeLang(lang) {
+        let data = langData[lang];
+        document.documentElement.lang = lang;
+        for(let key in data){
+            let el = document.getElementById(key);
+            if(el) {
+                el.innerHTML = data[key];
+            }
+        }
+    }
+
+    // 放大/缩小字体
+    function toggleFont() {
+        document.body.classList.toggle('font-large');
+        document.getElementById('fontBtn').innerText = document.body.classList.contains('font-large') ? '缩小字体' : '放大字体';
+    }
+
+    // 语音播报
+    function startSpeak() {
+        stopSpeak();
+        let text = document.getElementById('bannerDesc').innerText + " " + document.getElementById('guideTitle').innerText;
+        speech = new SpeechSynthesisUtterance(text);
+        speech.lang = document.documentElement.lang;
+        window.speechSynthesis.speak(speech);
+        isPaused = false;
+    }
+
+    // 暂停语音
+    function pauseSpeak() {
+        if(!speech) return;
+        if(isPaused){
+            window.speechSynthesis.resume();
+            document.getElementById('pauseBtn').innerText = langData[document.documentElement.lang].pauseBtn;
+            isPaused = false;
+        }else{
+            window.speechSynthesis.pause();
+            document.getElementById('pauseBtn').innerText = document.documentElement.lang === 'zh' ? '继续播放' : 
+                                                              document.documentElement.lang === 'en' ? 'Resume' :
+                                                              document.documentElement.lang === 'jp' ? '再開' : '재개';
+            isPaused = true;
+        }
+    }
+
+    // 停止语音
+    function stopSpeak() {
+        window.speechSynthesis.cancel();
+        isPaused = false;
+        document.getElementById('pauseBtn').innerText = langData[document.documentElement.lang].pauseBtn;
+    }
+
+    // 一键呼叫
+    function callService() {
+        alert('正在拨打专属客服：400-888-9999');
+    }
+
+    // 购票提示
+    function buyTicket() {
+        alert('购票申请已提交，客服将为您完成后续操作！');
+    }
+
+    // 提交预约
+    function submitReserve() {
+        alert('预约成功！工作人员10分钟内与您联系！');
+    }
+
+    // 滚动到预约区
+    function scrollToReserve() {
+        document.getElementById('reserve').scrollIntoView({behavior:'smooth'});
+    }
+</script>
+</body>
+</html>
